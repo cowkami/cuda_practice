@@ -41,7 +41,7 @@ __global__ void kernel( unsigned char *ptr ) {
     // now calculate the value at that position
     // int pixel_value = straight_line( x, y, 1, 0, 2 );
     // int pixel_value = circle_line( x, y, 1000, 1000, 100, 2);
-    // int pixel_value = straight_line( x, y, 1, 0, 2 ) || circle_line( x, y, 1000, 1000, 100, 2);
+    int pixel_value = straight_line( x, y, 1, 0, 2 ) || circle_line( x, y, 1000, 1000, 100, 2);
     ptr[offset*4 + 0] = 255 * pixel_value;
     ptr[offset*4 + 1] = 0;
     ptr[offset*4 + 2] = 0;
