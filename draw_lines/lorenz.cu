@@ -47,6 +47,7 @@ void line( unsigned char *ptr, color c, point_idx p1, point_idx p2) {
     }
 }
 
+
 void kernel( unsigned char *ptr ) {
     float t_max = 80;
     float dt = 0.00007;
@@ -62,9 +63,13 @@ void kernel( unsigned char *ptr ) {
 
     for (int i=0; i<int(t_max/dt); i++) {
         t = t + dt;
-        x = x + (sigma * (y - x))*dt;
-        y = y + (x * (rho - z) - y)*dt;
-        z = z + (x * y - beta * z)*dt;
+        float x_ = x + (sigma * (y - x))*dt;
+        float y_ = y + (x * (rho - z) - y)*dt;
+        float z_ = z + (x * y - beta * z)*dt;
+
+        x = x + (sigma * (y - (x_ + x)/2.0))*dt; 
+        y = y + (x * (rho - z) - (y_ + y)/2.0)*dt;
+        z = z + (x * y - beta * (z_ + z)/2.0)*dt;
         // color c = {128, int(255*(sin(5*t/t_max)+1)/2.0), 128, 255};
         // color c = {int(255 * t / t_max), int(255*(sin(5*t/t_max)+1)/2.0), int(255 - 255 * t / t_max), 255};
 
